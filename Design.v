@@ -340,8 +340,8 @@ reg [1:0] count;
               ERR<=1'b1;
              else
               begin
-               shift <= OPB % N;   
-               rot_temp <= (OPA << shift) | (OPA >> (N - shift));
+               shift = OPB % N;   
+               rot_temp = (OPA << shift) | (OPA >> (N - shift));
                RES <= rot_temp;
              end 
              end
@@ -351,8 +351,8 @@ reg [1:0] count;
          ERR<=1'b1;
          else
          begin
-          shift <= OPB % N;
-          rot_temp <= (OPA >> shift) | (OPA << (N - shift));
+          shift = OPB % N;
+          rot_temp = (OPA >> shift) | (OPA << (N - shift));
           RES <= rot_temp;
          end
         end

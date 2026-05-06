@@ -190,21 +190,22 @@ always@(posedge CLK or posedge RST)
            begin
            if (count == 0) 
 		   begin
-            temp1 = 0;
+            temp1 =(OPA+1)*(OPB+1);
              count <= 1;
             end
-          else if(count==1)
+          /*else if(count==1)
            begin
            temp1<=(OPA+1)*(OPB+1);
            count<=count+1;
            end
-        
-           else if(count==2)
+        */
+           else if(count==1)
            begin
            RES <= temp1;
            count<=0;
            end
            end
+           
            else
            ERR<=1'b1;
            end
@@ -216,16 +217,16 @@ always@(posedge CLK or posedge RST)
            begin
            if (count == 2'd0) 
 		   begin
-             temp1 = 0;
+             temp1 = (OPA<<1)*OPB;
              count <= 1;
            end
-           else if(count==1) 
+          /* else if(count==1) 
 		   begin
            temp1<=(OPA<<1)*OPB;
            count<=count+1;
            end
-          
-           else if(count==2)
+          */
+             else if(count==1)
 		   begin
            RES<=temp1;
            count<=0;

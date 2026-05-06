@@ -60,7 +60,7 @@ always@(posedge CLK or posedge RST)
        begin
           if(r_MODE)        
          begin
-           RES<=8'b00000000;
+          // RES<=8'b00000000;
            COUT<=1'b0;
            OFLOW<=1'b0;
            G<=1'b0;

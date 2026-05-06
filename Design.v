@@ -19,6 +19,8 @@ reg [1:0] count;
  
  reg [N-1:0] rot_temp;
  
+ integer shift;
+ 
     always@(posedge CLK or posedge RST)
       begin
          if(RST)               
@@ -227,7 +229,7 @@ reg [1:0] count;
                       E=1'b1;
                       G=1'b0;
                       L=1'b0;
-                  end
+                  end 
                 else if($signed(OPA)>$signed(OPB))
                    begin
                      E=1'b0;
@@ -333,23 +335,27 @@ reg [1:0] count;
          4'b0100:RES={1'b0,OPA^OPB}; 
          4'b0101:RES={1'b0,~(OPA^OPB)};
          4'b1100:                        
-             begin 
-               if(OPB[4] | OPB[5] |OPB[6] |OPB[7]) 
-			   begin
-               ERR=1'b1;
-               rot_temp= (OPA << OPB[2:0]) | (OPA >> (N - OPB[2:0]));
-               RES = {1'b0, rot_temp};
-               end
+             begin             
+              if(OPB[N-1:3]!=0)
+              ERR=1'b1;
+             else
+              begin
+               shift = OPB % N;   
+               rot_temp = (OPA << shift) | (OPA >> (N - shift));
+               RES = rot_temp;
              end 
+             end
          4'b1101: 
          begin
-          if (OPB[4] | OPB[5] | OPB[6] | OPB[7]) 
-		  begin
-          ERR = 1'b1;
-          rot_temp = (OPA >> OPB[2:0]) | (OPA << (N - OPB[2:0]));
-          RES = {1'b0, rot_temp};
-          end
-          end
+         if(OPB[N-1:3]!=0)
+         ERR=1'b1;
+         else
+         begin
+          shift = OPB % N;
+          rot_temp = (OPA >> shift) | (OPA << (N - shift));
+          RES = rot_temp;
+         end
+        end
              
         default:    
                begin
@@ -369,3 +375,4 @@ reg [1:0] count;
    end
  end
  endmodule  
+  

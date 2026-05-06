@@ -30,6 +30,7 @@ always@(posedge CLK or posedge RST)
       begin
         r_OPA<=0; r_OPB<=0; r_CIN<=0;
         r_MODE<=0; r_CMD<=0; r_INP_VALID<=0;
+        COUT<=0; OFLOW<=0; G<=0;E<=0;L<=0;
       end
     else if(CE)
       begin
@@ -186,12 +187,14 @@ always@(posedge CLK or posedge RST)
            
            4'b1001:                   
            begin
-           if(INP_VALID==2'b11)
+             if(r_INP_VALID==2'b11)
            begin
            if (count == 0) 
 		   begin
-            temp1 =(OPA+1)*(OPB+1);
+             temp1 =(r_OPA+1)*(r_OPB+1);
+             RES<=1'bx;
              count <= 1;
+             
             end
           /*else if(count==1)
            begin
@@ -213,11 +216,11 @@ always@(posedge CLK or posedge RST)
            
            4'b1010:                   
            begin
-           if(INP_VALID==2'b11)
+             if(r_INP_VALID==2'b11)
            begin
            if (count == 2'd0) 
 		   begin
-             temp1 = (OPA<<1)*OPB;
+             temp1 = (r_OPA<<1)*r_OPB;
              count <= 1;
            end
           /* else if(count==1) 

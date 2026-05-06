@@ -53,7 +53,7 @@ reg [1:0] count;
             if(INP_VALID==2'b11)
              begin           
               RES=OPA+OPB;
-              COUT=RES[2*N]?1:0;
+              COUT=RES[N]?1:0;
              end 
             else
             ERR=1'b1;
@@ -77,7 +77,7 @@ reg [1:0] count;
             if(INP_VALID==2'b11)
             begin
              RES=OPA+OPB+CIN;
-             COUT=RES[2*N]?1:0;
+             COUT=RES[N]?1:0;
             end
             else
              ERR=1'b1;
